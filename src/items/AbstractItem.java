@@ -1,5 +1,16 @@
 package items;
 
+import items.boots.NoviceBoots;
+import items.chests.DragonChest;
+import items.gloves.BronzeGloves;
+import items.helmets.BrassHelmet;
+import items.weapons.bows.Crossbow;
+import items.weapons.rods.LegendaryRods;
+import items.weapons.swords.KatanaSword;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  *
  */
@@ -28,6 +39,15 @@ abstract public class AbstractItem {
         return energy;
     }
 
+    private static HashSet<Class> items = new HashSet<>();
+
+    /**
+     * @return HashMap<String, Class>
+     */
+    public static HashSet<Class> getItems() {
+        return items;
+    }
+
     /**
      * @param maximum int
      * @return int
@@ -40,6 +60,14 @@ abstract public class AbstractItem {
      *
      */
     public AbstractItem(int points) {
+        items.add(NoviceBoots.class);
+        items.add(DragonChest.class);
+        items.add(BronzeGloves.class);
+        items.add(BrassHelmet.class);
+        items.add(Crossbow.class);
+        items.add(LegendaryRods.class);
+        items.add(KatanaSword.class);
+
         int rand = generateRandomPoints(points);
         points -= rand;
         this.strength = rand;

@@ -1,15 +1,17 @@
-import player.Character;
 import views.AboutPanel;
 import views.CharacterSelectorPanel;
-import views.MissionSelectorPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ *
+ */
 class Main {
-    Character character;
-
+    /**
+     *
+     * @param args String[]
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("Mu Online");
         frame.setSize(1000, 600);

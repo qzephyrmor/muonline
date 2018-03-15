@@ -1,7 +1,12 @@
 package mission;
 
+import items.AbstractItem;
+import items.ItemInterface;
 import mission.enemies.EnemyInterface;
 import player.Character;
+
+import javax.swing.*;
+import java.util.HashSet;
 
 /**
  *
@@ -66,13 +71,36 @@ abstract class Mission implements MissionInterface{
         int rand = (int) (Math.random() * (100 + 1));
 
         double chance = (characterWinning / (characterWinning + enemyWinning)) * 100;
-//        System.out.println(rand);
-//        System.out.println(chance);
 
         boolean win;
 
         if (rand < chance) {
             win = true;
+
+            if (generateRandom(0, 100) > 40) {
+                HashSet<Class> items = AbstractItem.getItems();
+                int index = generateRandom(0, items.size() - 1);
+                Class itemClass = (Class) items.toArray()[index];
+
+                try {
+                    int itemLevel = Math.max(0, getEnemy().getLevel() * 5);
+                    ItemInterface item = (ItemInterface) Class
+                        .forName(itemClass.getName())
+                        .getConstructor(int.class)
+                        .newInstance(itemLevel);
+
+                    character.getBag().addItem(item);
+
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "You have been received a new item: " + item.getName() + " (Lv. " + itemLevel + ")",
+                        "New item alert",
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             win = false;
             character.setLifePoint(character.getLifePoint() - 1);
