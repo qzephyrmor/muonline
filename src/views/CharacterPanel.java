@@ -82,7 +82,7 @@ public class CharacterPanel extends JPanel {
                 panel.setCharacter(character);
                 panel.create();
                 frame.add(panel);
-                frame.setSize(350, 300);
+                frame.setSize(800, 300);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }

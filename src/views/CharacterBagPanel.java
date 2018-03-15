@@ -27,7 +27,7 @@ public class CharacterBagPanel extends JPanel {
     public void create() {
         Bag bag = character.getBag();
 
-        JPanel bagPanel = new JPanel(new GridLayout(bag.getItems().size() + 1, 4));
+        JPanel bagPanel = new JPanel(new GridLayout(bag.getItems().size() + 1, 8));
         Border bagBorder = BorderFactory.createTitledBorder("Bag (" + bag.getItems().size() + "/20)");
         bagPanel.setBorder(bagBorder);
 
@@ -35,10 +35,19 @@ public class CharacterBagPanel extends JPanel {
         bagPanel.add(new JLabel("Item Name"));
         bagPanel.add(new JLabel(""));
         bagPanel.add(new JLabel(""));
+        bagPanel.add(new JLabel(""));
+        bagPanel.add(new JLabel(""));
+        bagPanel.add(new JLabel(""));
+        bagPanel.add(new JLabel(""));
+
 
         for (ItemInterface item: bag.getItems()) {
             bagPanel.add(new JLabel(item.getType()));
             bagPanel.add(new JLabel(item.getName()));
+            bagPanel.add(new JLabel(item.getStrength() + " Strength"));
+            bagPanel.add(new JLabel(item.getAgility() + " Agility"));
+            bagPanel.add(new JLabel(item.getStamina() + " Stamina"));
+            bagPanel.add(new JLabel(item.getEnergy()+ " Energy"));
             bagPanel.add(new JButton(new AbstractAction("Equip") {
                 @Override
                 public void actionPerformed(ActionEvent e) {
