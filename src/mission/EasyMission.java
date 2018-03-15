@@ -21,4 +21,14 @@ public class EasyMission extends Mission {
     public EasyMission(Character character) {
         super(character);
     }
+
+    @Override
+    public boolean fight() {
+        boolean win = super.fight();
+
+        this.experience = (win ? generateRandom(6, 25) : 5);
+        character.earnExperience(this.experience);
+
+        return win;
+    }
 }

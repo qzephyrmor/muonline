@@ -3,12 +3,15 @@ package views;
 import player.Character;
 import player.Equipment;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  *
@@ -114,8 +117,28 @@ public class CharacterPanel extends JPanel {
             }
         }));
 
-        add(panel);
-        add(properties);
-        add(actionsPanel);
+        setLayout(new GridLayout(1, 2));
+
+        try {
+            switch (character.getName()) {
+                case "Elf":
+                    add(new JLabel(new ImageIcon(ImageIO.read(new File("src/images/elf.png")))));
+                    break;
+                case "Dark Knight":
+                    add(new JLabel(new ImageIcon(ImageIO.read(new File("src/images/dark_knight.png")))));
+                    break;
+                case "Dark Wizard":
+                    add(new JLabel(new ImageIcon(ImageIO.read(new File("src/images/dark_wizard.png")))));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        JPanel top = new JPanel(new GridLayout(3, 1));
+        top.add(panel);
+        top.add(properties);
+        top.add(actionsPanel);
+        add(top);
     }
 }

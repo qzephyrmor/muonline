@@ -34,6 +34,25 @@ abstract class Enemy implements EnemyInterface {
      */
     int level;
 
+    public int getStrength() {
+        return this.strength;
+    }
+
+    public int getAgility() {
+        return this.agility;
+    }
+
+    public int getStamina() {
+        return this.stamina;
+    }
+
+    public int getEnergy() {
+        return this.energy;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
     /**
      * @param level int
      */

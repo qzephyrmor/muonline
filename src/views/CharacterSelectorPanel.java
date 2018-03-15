@@ -68,7 +68,7 @@ public class CharacterSelectorPanel extends JPanel {
                 }
 
                 try {
-                    getCharacter().getBag().addItem(new NoviceBoots(10));
+                    getCharacter().getBag().addItem(new NoviceBoots(100));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

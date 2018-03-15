@@ -21,4 +21,14 @@ public class HardMission extends Mission {
     public HardMission(Character character) {
         super(character);
     }
+
+    @Override
+    public boolean fight() {
+        boolean win = super.fight();
+
+        this.experience = win ? generateRandom(21, 140) : 20;
+        character.earnExperience(this.experience);
+
+        return win;
+    }
 }

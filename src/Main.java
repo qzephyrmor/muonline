@@ -12,7 +12,7 @@ class Main {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Mu Online");
-        frame.setSize(800, 450);
+        frame.setSize(1000, 600);
         frame.setLayout(new GridLayout(3, 1));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

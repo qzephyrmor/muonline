@@ -12,9 +12,32 @@ public class Dragon extends Enemy {
     }
 
     /**
+     * @param maximum int
+     * @return int
+     */
+    private int generateRandomPoints(int maximum) {
+        return (int) (Math.random() * (maximum + 1));
+    }
+
+    /**
      * @param level int
      */
     public Dragon(int level) {
         super(level);
+
+        int points = level * 7 + 20;
+        int rand = generateRandomPoints(points);
+        points -= rand;
+        this.strength = rand;
+
+        rand = generateRandomPoints(points);
+        points -= rand;
+        this.agility = rand;
+
+        rand = generateRandomPoints(points);
+        points -= rand;
+        this.stamina = rand;
+
+        this.energy = points;
     }
 }

@@ -3,6 +3,7 @@ package views;
 import mission.EasyMission;
 import mission.HardMission;
 import mission.MediumMission;
+import mission.MissionInterface;
 import player.Character;
 
 import javax.swing.*;
@@ -28,6 +29,16 @@ public class MissionSelectorPanel extends JPanel {
         frame.repaint();
     }
 
+    private void showMissionDetails(MissionInterface mission) {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        MissionDetailPanel panel = new MissionDetailPanel();
+        panel.setCharacter(character);
+        panel.setMission(mission);
+        panel.create();
+        frame.setContentPane(panel);
+        frame.revalidate();
+        frame.repaint();
+    }
     /**
      *
      */
@@ -41,12 +52,18 @@ public class MissionSelectorPanel extends JPanel {
                 if (box.getSelectedItem() == "Easy") {
                     EasyMission mission = new EasyMission(character);
                     mission.fight();
+
+                    showMissionDetails(mission);
                 } else if (box.getSelectedItem() == "Medium") {
                     MediumMission mission = new MediumMission(character);
                     mission.fight();
+
+                    showMissionDetails(mission);
                 } else if (box.getSelectedItem() == "Hard") {
                     HardMission mission = new HardMission(character);
                     mission.fight();
+
+                    showMissionDetails(mission);
                 }
             }
         });
