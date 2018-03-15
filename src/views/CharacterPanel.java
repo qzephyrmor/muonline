@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -22,11 +24,41 @@ public class CharacterPanel extends JPanel {
         this.character = character;
     }
 
+    private void showEquipment() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        CharacterEquipmentPanel panel = new CharacterEquipmentPanel();
+        panel.setCharacter(character);
+        panel.create();
+        frame.setContentPane(panel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void showBag() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        CharacterBagPanel panel = new CharacterBagPanel();
+        panel.setCharacter(character);
+        panel.create();
+        frame.setContentPane(panel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void showMissions() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        MissionSelectorPanel panel = new MissionSelectorPanel();
+        panel.setCharacter(character);
+        panel.create();
+        frame.setContentPane(panel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
     /**
      *
      */
     public void create() {
-        setLayout(new GridLayout(2, 1));
+        setLayout(new GridLayout(3, 1));
 
         JPanel panel = new JPanel(new GridLayout(3, 2));
         Border border = BorderFactory.createTitledBorder("Character");
@@ -36,7 +68,7 @@ public class CharacterPanel extends JPanel {
         panel.add(new JLabel("" + character.getName()));
 
         panel.add(new JLabel("Level: "));
-        panel.add(new JLabel("" + character.getLevel()));
+        panel.add(new JLabel("Lv. " + character.getLevel() + " (" + character.getExperience() + "%)"));
 
         panel.add(new JLabel("Life points: "));
         panel.add(new JLabel("" + character.getLifePoint()));
@@ -46,46 +78,44 @@ public class CharacterPanel extends JPanel {
         properties.setBorder(propertiesBorder);
 
         properties.add(new JLabel("Strength: "));
-        properties.add(new JLabel("" + character.getStrength()));
+        properties.add(new JLabel("" + character.getDirtyStrength() + " (+" + character.getEquipment().getStrength() + ")"));
 
         properties.add(new JLabel("Agility: "));
-        properties.add(new JLabel("" + character.getAgility()));
+        properties.add(new JLabel("" + character.getDirtyAgility() + " (+" + character.getEquipment().getAgility() + ")"));
 
         properties.add(new JLabel("Stamina: "));
-        properties.add(new JLabel("" + character.getStamina()));
+        properties.add(new JLabel("" + character.getDirtyStamina() + " (+" + character.getEquipment().getStamina() + ")"));
 
         properties.add(new JLabel("Energy: "));
-        properties.add(new JLabel("" + character.getEnergy()));
+        properties.add(new JLabel("" + character.getDirtyEnergy() + " (+" + character.getEquipment().getEnergy() + ")"));
+
+        JPanel actionsPanel = new JPanel(new GridLayout(1, 2));
+        Border actionsBorder = BorderFactory.createTitledBorder("Actions");
+        actionsPanel.setBorder(actionsBorder);
+
+        actionsPanel.add(new JButton(new AbstractAction("Equipment") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showEquipment();
+            }
+        }));
+
+        actionsPanel.add(new JButton(new AbstractAction("Bag") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showBag();
+            }
+        }));
+
+        actionsPanel.add(new JButton(new AbstractAction("Go to mission") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMissions();
+            }
+        }));
 
         add(panel);
         add(properties);
-
-        add(new JButton(new AbstractAction("Equipment") {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame frame = new JFrame("Character equipment");
-                CharacterEquipmentPanel panel = new CharacterEquipmentPanel();
-                panel.setCharacter(character);
-                panel.create();
-                frame.add(panel);
-                frame.setSize(800, 300);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
-        }));
-
-        add(new JButton(new AbstractAction("Bag") {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame frame = new JFrame("Character bag");
-                CharacterBagPanel panel = new CharacterBagPanel();
-                panel.setCharacter(character);
-                panel.create();
-                frame.add(panel);
-                frame.setSize(800, 300);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
-        }));
+        add(actionsPanel);
     }
 }

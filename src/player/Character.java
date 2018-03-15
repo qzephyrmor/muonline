@@ -3,7 +3,9 @@ package player;
 import items.ItemInterface;
 import items.boots.BootsInterface;
 import items.chests.ChestsInterface;
+import items.gloves.GlovesInterface;
 import items.helmets.HelmetInterface;
+import items.weapons.WeaponsInterface;
 
 /**
  *
@@ -55,10 +57,15 @@ abstract public class Character {
     private int level = 1;
 
     /**
+     * Tapasztalati pont
+     */
+    private int experience = 0;
+
+    /**
      * @return int
      */
     public int getStrength() {
-        return this.strength;
+        return this.strength + this.getEquipment().getStrength();
     }
 
     /**
@@ -71,8 +78,15 @@ abstract public class Character {
     /**
      * @return int
      */
+    public int getDirtyStrength() {
+        return this.strength;
+    }
+
+    /**
+     * @return int
+     */
     public int getAgility() {
-        return this.agility;
+        return this.agility + this.getEquipment().getAgility();
     }
 
     /**
@@ -85,8 +99,15 @@ abstract public class Character {
     /**
      * @return int
      */
+    public int getDirtyAgility() {
+        return this.agility;
+    }
+
+    /**
+     * @return int
+     */
     public int getStamina() {
-        return this.stamina;
+        return this.stamina + this.getEquipment().getStamina();
     }
 
     /**
@@ -99,7 +120,21 @@ abstract public class Character {
     /**
      * @return int
      */
+    public int getDirtyStamina() {
+        return this.stamina;
+    }
+
+    /**
+     * @return int
+     */
     public int getEnergy() {
+        return this.energy + this.getEquipment().getEnergy();
+    }
+
+    /**
+     * @return int
+     */
+    public int getDirtyEnergy() {
         return this.energy;
     }
 
@@ -146,14 +181,51 @@ abstract public class Character {
     }
 
     /**
-     * @param level int
+     * @param maximum int
+     * @return int
      */
-    public void setLevel(int level) {
-        this.level = level;
+    private int generateRandomPoints(int maximum) {
+        return (int) (Math.random() * (maximum + 1));
     }
 
-    public void levelUp() {
+    /**
+     * @param points int
+     */
+    public void earnPrimaryPoints(int points) {
+        int rand = generateRandomPoints(points);
+        points -= rand;
+        this.strength += rand;
 
+        rand = generateRandomPoints(points);
+        points -= rand;
+        this.agility += rand;
+
+        rand = generateRandomPoints(points);
+        points -= rand;
+        this.stamina += rand;
+
+        this.energy += points;
+    }
+
+    /**
+     * @param experience int
+     */
+    public void earnExperience(int experience) {
+        this.experience += experience;
+
+        while (this.experience >= 100) {
+            this.level += 1;
+            this.experience -= 100;
+            this.lifePoint += 3;
+            this.earnPrimaryPoints(5);
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public int getExperience() {
+        return this.experience;
     }
 
     /**
@@ -169,6 +241,34 @@ abstract public class Character {
         } else if (item instanceof BootsInterface) {
             this.getBag().getItems().remove(item);
             this.getEquipment().equipBoots((BootsInterface) item);
+        } else if (item instanceof WeaponsInterface) {
+            this.getBag().getItems().remove(item);
+            this.getEquipment().equipWeapon((WeaponsInterface) item);
+        } else if (item instanceof GlovesInterface) {
+            this.getBag().getItems().remove(item);
+            this.getEquipment().equipGloves((GlovesInterface) item);
+        }
+    }
+
+    /**
+     * @param item ItemInterface
+     */
+    public void unequip(ItemInterface item) {
+        if (item instanceof HelmetInterface) {
+            this.getBag().getItems().add(item);
+            this.getEquipment().unequipHelmet((HelmetInterface) item);
+        } else if (item instanceof ChestsInterface) {
+            this.getBag().getItems().add(item);
+            this.getEquipment().unequipChest((ChestsInterface) item);
+        } else if (item instanceof BootsInterface) {
+            this.getBag().getItems().add(item);
+            this.getEquipment().unequipBoots((BootsInterface) item);
+        } else if (item instanceof WeaponsInterface) {
+            this.getBag().getItems().add(item);
+            this.getEquipment().unequipWeapon((WeaponsInterface) item);
+        } else if (item instanceof GlovesInterface) {
+            this.getBag().getItems().add(item);
+            this.getEquipment().unequipGloves((GlovesInterface) item);
         }
     }
 }

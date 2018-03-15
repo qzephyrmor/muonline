@@ -6,12 +6,23 @@ import player.Equipment;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class CharacterEquipmentPanel extends JPanel {
     private Character character;
 
     public void setCharacter(Character character) {
         this.character = character;
+    }
+
+    private void unload() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        CharacterPanel panel = new CharacterPanel();
+        panel.setCharacter(character);
+        panel.create();
+        frame.setContentPane(panel);
+        frame.revalidate();
+        frame.repaint();
     }
 
     private void createHelmetRow(JPanel bagPanel, Equipment equipment) {
@@ -41,6 +52,17 @@ public class CharacterEquipmentPanel extends JPanel {
                 ? "+" + equipment.getHelmet().getEnergy() + " energy"
                 : ""
         ));
+
+        if (equipment.getHelmet() != null) {
+            bagPanel.add(new JButton(new AbstractAction("Unequip") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    character.unequip(equipment.getHelmet());
+                }
+            }));
+        } else {
+            bagPanel.add(new JLabel(""));
+        }
     }
 
     private void createChestRow(JPanel bagPanel, Equipment equipment) {
@@ -70,6 +92,17 @@ public class CharacterEquipmentPanel extends JPanel {
                 ? "+" + equipment.getChest().getEnergy() + " energy"
                 : ""
         ));
+
+        if (equipment.getChest() != null) {
+            bagPanel.add(new JButton(new AbstractAction("Unequip") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    character.unequip(equipment.getChest());
+                }
+            }));
+        } else {
+            bagPanel.add(new JLabel(""));
+        }
     }
 
     private void createBootsRow(JPanel bagPanel, Equipment equipment) {
@@ -99,6 +132,17 @@ public class CharacterEquipmentPanel extends JPanel {
                 ? "+" + equipment.getBoots().getEnergy() + " energy"
                 : ""
         ));
+
+        if (equipment.getBoots() != null) {
+            bagPanel.add(new JButton(new AbstractAction("Unequip") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    character.unequip(equipment.getBoots());
+                }
+            }));
+        } else {
+            bagPanel.add(new JLabel(""));
+        }
     }
 
     private void createGlovesRow(JPanel bagPanel, Equipment equipment) {
@@ -128,6 +172,17 @@ public class CharacterEquipmentPanel extends JPanel {
                 ? "+" + equipment.getGloves().getEnergy() + " energy"
                 : ""
         ));
+
+        if (equipment.getGloves() != null) {
+            bagPanel.add(new JButton(new AbstractAction("Unequip") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    character.unequip(equipment.getGloves());
+                }
+            }));
+        } else {
+            bagPanel.add(new JLabel(""));
+        }
     }
 
     private void createWeaponRow(JPanel bagPanel, Equipment equipment) {
@@ -157,10 +212,21 @@ public class CharacterEquipmentPanel extends JPanel {
                 ? "+" + equipment.getWeapon().getEnergy() + " energy"
                 : ""
         ));
+
+        if (equipment.getWeapon() != null) {
+            bagPanel.add(new JButton(new AbstractAction("Unequip") {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    character.unequip(equipment.getWeapon());
+                }
+            }));
+        } else {
+            bagPanel.add(new JLabel(""));
+        }
     }
 
     public void create() {
-        JPanel bagPanel = new JPanel(new GridLayout(5, 6));
+        JPanel bagPanel = new JPanel(new GridLayout(5, 7));
         Border bagBorder = BorderFactory.createTitledBorder("Equipment");
         bagPanel.setBorder(bagBorder);
 
@@ -173,5 +239,11 @@ public class CharacterEquipmentPanel extends JPanel {
         this.createGlovesRow(bagPanel, equipment);
 
         add(bagPanel);
+        add(new JButton(new AbstractAction("Back") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                unload();
+            }
+        }));
     }
 }

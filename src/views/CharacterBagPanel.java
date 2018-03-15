@@ -24,6 +24,16 @@ public class CharacterBagPanel extends JPanel {
         return (JFrame) SwingUtilities.getWindowAncestor(this);
     }
 
+    private void unload() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        CharacterPanel panel = new CharacterPanel();
+        panel.setCharacter(character);
+        panel.create();
+        frame.setContentPane(panel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
     public void create() {
         Bag bag = character.getBag();
 
@@ -67,5 +77,11 @@ public class CharacterBagPanel extends JPanel {
         }
 
         add(bagPanel);
+        add(new JButton(new AbstractAction("Back") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                unload();
+            }
+        }));
     }
 }

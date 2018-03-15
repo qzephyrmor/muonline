@@ -9,6 +9,7 @@ public class DragonChest extends AbstractItem implements ChestsInterface {
     public String getName() {
         return "Dragon Chest";
     }
+
     /**
      * {@inheritDoc}
      */
@@ -16,11 +17,10 @@ public class DragonChest extends AbstractItem implements ChestsInterface {
         return "Chest";
     }
 
-    public DragonChest(int points){
-        super(points);
-    }
     /**
      * @param points int
      */
-
+    public DragonChest(int points){
+        super(points);
+    }
 }
