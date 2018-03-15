@@ -41,8 +41,6 @@ public class MissionSelectorPanel extends JPanel {
                 if (box.getSelectedItem() == "Easy") {
                     EasyMission mission = new EasyMission(character);
                     mission.fight();
-
-                    character.earnExperience(30);
                 } else if (box.getSelectedItem() == "Medium") {
                     MediumMission mission = new MediumMission(character);
                     mission.fight();

@@ -17,6 +17,11 @@ abstract public class Character {
     abstract public String getName();
 
     /**
+     * @return int
+     */
+    abstract public int getWinningPoints();
+
+    /**
      * Táska
      */
     private Bag bag = new Bag();
@@ -29,22 +34,22 @@ abstract public class Character {
     /**
      * Erő
      */
-    private int strength = 0;
+    protected int strength = 0;
 
     /**
      * Ügyesség
      */
-    private int agility = 0;
+    protected int agility = 0;
 
     /**
      * Állóképesség
      */
-    private int stamina = 0;
+    protected int stamina = 0;
 
     /**
      * Energia
      */
-    private int energy = 0;
+    protected int energy = 0;
 
     /**
      * Életpont
