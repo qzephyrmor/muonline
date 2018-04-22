@@ -52,7 +52,12 @@ public class CharacterSelectorPanel extends JPanel {
      */
     public void create() {
         String[] types = {"Dark Wizard", "Dark Knight", "Elf"};
-        JComboBox type = new JComboBox(types);
+        JComboBox<String> type = new JComboBox<>();
+
+        for (String typeName: types) {
+            type.addItem(typeName);
+        }
+
         add(type);
 
         JButton button = new JButton(new AbstractAction("Kiválaszt") {

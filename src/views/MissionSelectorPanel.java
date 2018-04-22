@@ -43,8 +43,13 @@ public class MissionSelectorPanel extends JPanel {
      *
      */
     public void create() {
-        String[] difficults = {"Easy", "Medium", "Hard"};
-        JComboBox box = new JComboBox(difficults);
+        String[] difficulties = {"Easy", "Medium", "Hard"};
+        JComboBox<String> box = new JComboBox<>();
+
+        for (String difficulty: difficulties) {
+            box.addItem(difficulty);
+        }
+
         add(box);
 
         JButton button = new JButton(new AbstractAction("Indulás") {
