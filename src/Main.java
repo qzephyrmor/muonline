@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
- *
+ *@author  Kiss Roland Kristóf
+ * H1YFRN
+ * MuOnlite
  */
 class Main {
     /**
